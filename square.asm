@@ -11,19 +11,19 @@ culoare DB 5
 	mov ax,@data
 	mov ds,ax
 	mov ah, 0h   
-	mov al, 13h ; comutare in modul grafic 13h (320 x 200)
+	mov al, 13h ; change to graphic mode 13h (320 x 200)
 	int 10h     
 	call desen
 	;call pauza
 tastatura:
-	in ax, 60h      ;importa codul tastaturii
-	cmp al, 48h     ;sageata in sus
+	in ax, 60h      ;import keyboard code
+	cmp al, 48h     ;arrow up
 	je sus
-	cmp al, 50h     ;sageata in jos
+	cmp al, 50h     ;arrow down
 	je jos
-	cmp al, 4Bh     ;sageata stanga
+	cmp al, 4Bh     ;arrow left
 	je stanga
-	cmp al, 4Dh     ;sageata dreapta
+	cmp al, 4Dh     ;arrow right
 	je dreapta
 	jmp tastatura
 	cmp al, 01h     ;iesire
@@ -84,22 +84,22 @@ dreapta: call stergedisplay
 	jmp tastatura
 desen:
 	mov al, culoare
-	mov cx, yy  ; axa y
-	mov dx, xx  ; axa x
-	mov ah, 0ch ; deseneaza pixel
+	mov cx, yy  ; y axis
+	mov dx, xx  ; x axis
+	mov ah, 0ch ; draw pixel
 
 axax:
-	inc cx   ; deseneaza axa x
+	inc cx   ; draw x axis
 	int 10h
 	cmp cx, mmrmx
 	JNE axax
 	mov cx, yy  	;
-	inc dx      	;incrementeaza axa y
+	inc dx      	;increment y axis
 	cmp dx, mmrmy  
 	JNE axax
 	ret
 
-pauza: 	mov     cx, 0fh  ; pauza 10 sec
+pauza: 	mov     cx, 0fh  ; this is not used, it is just for testing
 	mov     dx, 4240h
 	mov     ah, 86h
 	mov     al, 0
